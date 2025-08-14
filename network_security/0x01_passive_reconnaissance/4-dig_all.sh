@@ -1,2 +1,2 @@
-#!bin/bash
+#!/bin/bash
 dig any +noall +answer $1
