@@ -1,2 +1,2 @@
 #!/bin/bash
-whois $1 | grep -E '^(Registrant|Admin|Tech)' | sed 's/^[ \t]*//; s/[ \t]*$//' | sed 's/:/,/' > $1.csv
+whois $1 | awk '/^(Registrant|Admin|Tech)/ {gsub(/^[ \t]+|[ \t]+$/, "", $0); split($0,a,":"); gsub(/^ /,"",a[2]); print a[1]","a[2]}' > $1.csv
