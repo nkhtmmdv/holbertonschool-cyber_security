@@ -7,7 +7,7 @@ This document presents the results of reconnaissance on the domain `holbertonsch
 - Determine the IP ranges linked to the domain.
 - Identify technologies and platforms in use on its subdomains.
 
-**Report Date:** 11.08.2025
+**Report Date:** 16.08.2025
 
 ---
 
