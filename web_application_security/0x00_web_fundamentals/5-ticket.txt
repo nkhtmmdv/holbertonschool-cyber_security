@@ -1,0 +1,9 @@
+GET /support?id=1 HTTP/1.1
+Host: web0x00.hbtn
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Referer: http://web0x00.hbtn/support
+Connection: close
+Cookie: session=.eJxFyjsKgDAQBcC7vDpIbFMpHsETJLhiID92E1TEu2sjtsNcGJfok8CsNggpTE1qjsSvVG4vzK2UzPUfFK0PMDizsB92cvrQuttcTVDwC0yv0IQ42Uhfw_0AkYMj6g.aMWLgw.O4vXD6LZjERqsiKZcf3bacIeOxI
+Upgrade-Insecure-Requests: 1
