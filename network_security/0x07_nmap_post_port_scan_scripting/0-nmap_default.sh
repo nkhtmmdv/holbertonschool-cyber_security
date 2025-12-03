@@ -1,2 +1,2 @@
 #!/bin/bash
-nmap -sC -sV -p- "$1"
+nmap -sC -sV -p- $1
