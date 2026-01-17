@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 # Basic CLI application using OptionParser
-
 require 'optparse'
 
 TASKS_FILE = 'tasks.txt'
@@ -37,8 +36,12 @@ if options[:add]
   tasks << options[:add]
   File.write(TASKS_FILE, tasks.join("\n") + "\n")
   puts "Task '#{options[:add]}' added."
+
 elsif options[:list]
-  tasks.each { |task| puts task }
+  puts "Tasks:"
+  puts
+  tasks.each { |task| puts "    #{task}" }
+
 elsif options[:remove]
   index = options[:remove] - 1
   if index >= 0 && index < tasks.length
