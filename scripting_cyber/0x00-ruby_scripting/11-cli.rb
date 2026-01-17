@@ -1,36 +1,50 @@
 #!/usr/bin/env ruby
+
 require 'optparse'
 
-TASKS_FILE = 'tasks.txt'
-options = {}
+file = 'tasks.txt'
 
-OptionParser.new do |opts|
-  opts.banner = "Usage: cli.rb [options]"
+OptionParser.new do |op|
+  op.banner  = 'Usage: cli.rb [options]'
 
-  opts.on('-a', '--add TASK', 'Add a new task') { |task| options[:add] = task }
-  opts.on('-l', '--list', 'List all tasks') { options[:list] = true }
-  opts.on('-r', '--remove INDEX', Integer, 'Remove a task by index') { |i| options[:remove] = i }
-  opts.on('-h', '--help', 'Show help') { puts opts; exit }
-end.parse!
 
-File.write(TASKS_FILE, "") unless File.exist?(TASKS_FILE)
-tasks = File.readlines(TASKS_FILE, chomp: true)
-
-if options[:add]
-  tasks << options[:add]
-  File.write(TASKS_FILE, tasks.join("\n") + "\n")
-  puts "Task '#{options[:add]}' added."
-
-elsif options[:list]
-  puts "Tasks:"
-  puts                 # пустая строка после заголовка
-  tasks.each { |task| puts "    #{task}" }  # 4 пробела
-
-elsif options[:remove]
-  index = options[:remove] - 1
-  if index >= 0 && index < tasks.length
-    removed = tasks.delete_at(index)
-    File.write(TASKS_FILE, tasks.join("\n") + (tasks.empty? ? "" : "\n"))
-    puts "Task '#{removed}' removed."
+  op.on("-a", "--add TASK", "Add a new task") do |task|
+    File.open(file, 'a') do |file|
+      file.puts(task)
+    end
+    puts "Task '#{task}' added."
   end
-end
+
+  op.on("-l", "--list", "List all tasks") do
+    i = 1
+    array = File.readlines(file)
+    puts "Tasks:"
+    array.each do |line|
+      word = line.chomp!
+      puts "#{i}. #{word}"
+      i += 1
+    end 
+  end
+
+
+  op.on("-r", "--remove INDEX", "Remove a task by index") do |indx|
+
+    index = indx.to_i - 1
+    array = File.readlines(file)
+    rm_task = array[index].chomp!
+    array.delete_at(index)
+    File.open(file, 'w') do |file|
+      array.each do |task|
+        file.puts(task)
+      end
+    end
+    puts "Task '#{rm_task}' removed."
+  end
+
+
+  op.on("-h", "--help", "Show help") do
+    puts op
+    exit
+  end
+
+end.parse!
