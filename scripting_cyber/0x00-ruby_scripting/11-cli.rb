@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 # Basic CLI application using OptionParser
+
 require 'optparse'
 
 TASKS_FILE = 'tasks.txt'
@@ -39,8 +40,10 @@ if options[:add]
 
 elsif options[:list]
   puts "Tasks:"
-  puts
-  tasks.each { |task| puts "    #{task}" }
+  puts                   # пустая строка
+  tasks.each do |task|
+    puts "    #{task}"    # 4 пробела
+  end
 
 elsif options[:remove]
   index = options[:remove] - 1
