@@ -1,10 +1,7 @@
 #!/usr/bin/env ruby
-# Basic CLI application using OptionParser
-
 require 'optparse'
 
 TASKS_FILE = 'tasks.txt'
-
 options = {}
 
 OptionParser.new do |opts|
@@ -16,9 +13,7 @@ OptionParser.new do |opts|
   opts.on('-h', '--help', 'Show help') { puts opts; exit }
 end.parse!
 
-# создаём файл, если его нет
 File.write(TASKS_FILE, "") unless File.exist?(TASKS_FILE)
-
 tasks = File.readlines(TASKS_FILE, chomp: true)
 
 if options[:add]
@@ -28,8 +23,8 @@ if options[:add]
 
 elsif options[:list]
   puts "Tasks:"
-  puts            # пустая строка после заголовка
-  tasks.each { |task| puts "    #{task}" }  # 4 пробела перед каждой задачей
+  puts                 # пустая строка после заголовка
+  tasks.each { |task| puts "    #{task}" }  # 4 пробела
 
 elsif options[:remove]
   index = options[:remove] - 1
