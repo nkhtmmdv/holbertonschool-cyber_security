@@ -1,19 +1,23 @@
-#!/usr/bin/env ruby
-# Reads a JSON file and counts userId occurrences
-
 require 'json'
 
 def count_user_ids(path)
-  file = File.read(path)
-  data = JSON.parse(file)
-
-  counts = Hash.new(0)
-
+  # Lire le contenu du fichier JSON
+  file_content = File.read(path)
+  
+  # Parser le contenu JSON
+  data = JSON.parse(file_content)
+  
+  # Initialiser un hash pour compter les userId
+  user_id_counts = Hash.new(0)
+  
+  # Parcourir chaque élément et compter les userId
   data.each do |item|
-    counts[item["userId"]] += 1
+    user_id_counts[item['userId']] += 1
   end
 
-  counts.sort.each do |user_id, count|
+  # Afficher les résultats
+  user_id_counts.each do |user_id, count|
     puts "#{user_id}: #{count}"
   end
 end
+

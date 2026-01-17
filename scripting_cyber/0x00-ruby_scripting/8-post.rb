@@ -1,30 +1,24 @@
-#!/usr/bin/env ruby
-# Performs an HTTP POST request and prints status and body
-
 require 'net/http'
-require 'uri'
 require 'json'
 
 def post_request(url, body_params = {})
+  # Parse the URL
   uri = URI(url)
 
+  # Create the HTTP POST request
   http = Net::HTTP.new(uri.host, uri.port)
-  http.use_ssl = (uri.scheme == 'https')
-
+  http.use_ssl = (uri.scheme == 'https') # Use SSL if the URL is HTTPS
   request = Net::HTTP::Post.new(uri.path, { 'Content-Type' => 'application/json' })
-  request.body = body_params.to_json
 
+  # Add the body parameters as JSON
+  request.body = body_params.to_json unless body_params.empty?
+
+  # Execute the request
   response = http.request(request)
 
+  # Print the response
   puts "Response status: #{response.code} #{response.message}"
-  puts
   puts "Response body:"
-  puts
-
-  begin
-    json_body = JSON.parse(response.body)
-    puts JSON.pretty_generate(json_body)
-  rescue JSON::ParserError
-    puts response.body
-  end
+  puts response.body
 end
+

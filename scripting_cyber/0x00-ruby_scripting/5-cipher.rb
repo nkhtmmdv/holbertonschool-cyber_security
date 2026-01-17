@@ -1,9 +1,6 @@
-#!/usr/bin/env ruby
-# Caesar Cipher implementation using classes
-
 class CaesarCipher
   def initialize(shift)
-    @shift = shift % 26
+    @shift = shift
   end
 
   def encrypt(message)
@@ -16,13 +13,11 @@ class CaesarCipher
 
   private
 
-  # Internal method for encryption/decryption
   def cipher(message, shift)
     message.chars.map do |char|
-      if char >= 'a' && char <= 'z'
-        (((char.ord - 'a'.ord + shift) % 26) + 'a'.ord).chr
-      elsif char >= 'A' && char <= 'Z'
-        (((char.ord - 'A'.ord + shift) % 26) + 'A'.ord).chr
+      if char.match?(/[a-zA-Z]/)
+        base = char.ord < 'a'.ord ? 'A'.ord : 'a'.ord
+        (((char.ord - base + shift) % 26) + base).chr
       else
         char
       end
