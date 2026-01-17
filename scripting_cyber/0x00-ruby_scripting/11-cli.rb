@@ -10,25 +10,13 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: cli.rb [options]"
 
-  opts.on('-a', '--add TASK', 'Add a new task') do |task|
-    options[:add] = task
-  end
-
-  opts.on('-l', '--list', 'List all tasks') do
-    options[:list] = true
-  end
-
-  opts.on('-r', '--remove INDEX', Integer, 'Remove a task by index') do |index|
-    options[:remove] = index
-  end
-
-  opts.on('-h', '--help', 'Show help') do
-    puts opts
-    exit
-  end
+  opts.on('-a', '--add TASK', 'Add a new task') { |task| options[:add] = task }
+  opts.on('-l', '--list', 'List all tasks') { options[:list] = true }
+  opts.on('-r', '--remove INDEX', Integer, 'Remove a task by index') { |i| options[:remove] = i }
+  opts.on('-h', '--help', 'Show help') { puts opts; exit }
 end.parse!
 
-# Ensure tasks file exists
+# создаём файл, если его нет
 File.write(TASKS_FILE, "") unless File.exist?(TASKS_FILE)
 
 tasks = File.readlines(TASKS_FILE, chomp: true)
@@ -40,10 +28,8 @@ if options[:add]
 
 elsif options[:list]
   puts "Tasks:"
-  puts                   # пустая строка
-  tasks.each do |task|
-    puts "    #{task}"    # 4 пробела
-  end
+  puts            # пустая строка после заголовка
+  tasks.each { |task| puts "    #{task}" }  # 4 пробела перед каждой задачей
 
 elsif options[:remove]
   index = options[:remove] - 1
